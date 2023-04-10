@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-11">
+    <select #confSelect (change)="onConferenceSelected(confSelect.value)">
+      <option
+        [value]="conference.value"
+        *ngFor="let conference of conferences$ | async"
+      >
+        {{ conference.name }}
+      </option>
+    </select>
+
+    <select #divisionSelect (change)="onDivisionSelected(divisionSelect.value)">
+      <option
+        [value]="division.value"
+        *ngFor="let division of divisions$ | async"
+      >
+        {{ division.name }}
+      </option>
+    </select>
+
+    <select #teamSelect>
+      <option [value]="team.id" *ngFor="let team of finalTeams$ | async">
+        {{ team.full_name }}
+      </option>
+    </select>
+
+    <button class="primary" (click)="trackTeam(teamSelect.value)">
+      Track team
+    </button>
+  </div>
+</div>
+<div class="row">
+  <app-team-stats
+    class="col-sm-4"
+    *ngFor="let team of nbaService.getTrackedTeams()"
+    [team]="team"
+  >
+  </app-team-stats>
+</div>
