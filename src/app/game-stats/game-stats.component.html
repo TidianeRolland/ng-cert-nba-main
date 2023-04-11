@@ -29,6 +29,25 @@
     </button>
   </div>
 </div>
+
+<div class="row">
+  <p>
+    <select
+      [ngModel]="nbaService.numberOfDaysSub.value"
+      #numberOfDaysSelect
+      (change)="nbaService.onSelectNumberOfDays(+numberOfDaysSelect.value)"
+    >
+      <option
+        [value]="numberOfDays"
+        *ngFor="let numberOfDays of NUMBER_OF_DAYS"
+      >
+        {{ numberOfDays }}
+      </option>
+    </select>
+    days
+  </p>
+</div>
+
 <div class="row">
   <app-team-stats
     class="col-sm-4"

@@ -31,6 +31,8 @@ export class GameStatsComponent {
 
   private readonly NO_FILTER_OPTION = { name: '', value: 'NO_FILTER' };
 
+  readonly NUMBER_OF_DAYS = [6, 12, 20];
+
   constructor(protected nbaService: NbaService) {
     this.teams$ = nbaService.getAllTeams().pipe(
       tap((data) => (this.allTeams = data)),
