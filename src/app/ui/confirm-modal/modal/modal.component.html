@@ -1,0 +1,60 @@
+<ng-container *ngIf="openModalRequest$ | async as modalConfig">
+  <div id="myModal" *ngIf="isVisible" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <!-- Header content -->
+      <ng-container
+        *ngIf="
+          modalConfig?.header && modalConfig?.header !== '';
+          else noHeaderInModalConfig
+        "
+      >
+        <div [innerHTML]="modalConfig.header"></div>
+      </ng-container>
+
+      <ng-template #noHeaderInModalConfig>
+        <div *ngIf="headerTemplate">
+          <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+        </div>
+      </ng-template>
+
+      <!-- End Header content -->
+
+      <!-- Body content -->
+      <ng-container
+        *ngIf="
+          modalConfig?.body && modalConfig?.body !== '';
+          else noBodyInModalConfig
+        "
+      >
+        <div [innerHTML]="modalConfig.body"></div>
+      </ng-container>
+
+      <ng-template #noBodyInModalConfig>
+        <div *ngIf="bodyTemplate">
+          <ng-container [ngTemplateOutlet]="bodyTemplate"></ng-container>
+        </div>
+      </ng-template>
+
+      <!-- End Body content -->
+
+      <!-- Footer content -->
+      <div *ngIf="footerTemplate; else noFooterTemplateProvided">
+        <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+      </div>
+
+      <ng-template #noFooterTemplateProvided>
+        <div>
+          <button (click)="reject(ModalEventType.REJECT)" type="button">
+            No
+          </button>
+          <button (click)="accept()" type="button">Yes</button>
+        </div>
+      </ng-template>
+
+      <!-- End Footer content -->
+    </div>
+  </div>
+</ng-container>
